@@ -1,6 +1,5 @@
 import { Redis } from 'ioredis';
 
-import { InternalServerError } from '@/utils/app-error.js';
 import { config } from './env-config';
 import { logger } from './logger-config';
 
@@ -16,23 +15,31 @@ let redisClient: Redis | null = null;
  * @returns Connected Redis instance.
  * @throws `Internal Server Error` if missing redis url
  */
-export const getRedisClient = async (): Promise<Redis> => {
+export const getRedisClient = async (): Promise<Redis | null> => {
   if (!config.redisUrl) {
-    throw new InternalServerError(
-      'REDIS_URL is not defined in the environment variables.'
-    );
+    logger.warn('⚠️ REDIS_URL is missing — Redis will be disabled');
+    return null;
   }
 
   if (!redisClient) {
-    redisClient = new Redis(config.redisUrl);
+    try {
+      redisClient = new Redis(config.redisUrl);
 
-    redisClient.on('connect', () => {
-      logger.info('✅ Connected to Redis');
-    });
+      redisClient.on('connect', () => {
+        logger.info('✅ Connected to Redis');
+      });
 
-    redisClient.on('error', err => {
-      logger.error('❌ Redis connection error:', err);
-    });
+      redisClient.on('error', err => {
+        logger.error('❌ Redis connection error:', err);
+      });
+
+      // Optional: wait for connection
+      await redisClient.ping();
+    } catch (err) {
+      logger.warn('⚠️ Redis initialization failed — disabling Redis.', err);
+      redisClient = null;
+    }
   }
+
   return redisClient;
 };

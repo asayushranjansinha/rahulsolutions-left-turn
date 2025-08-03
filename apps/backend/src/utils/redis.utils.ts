@@ -23,6 +23,7 @@ export const createCacheKey = (prefix: string, parts: unknown[]): string => {
 export const getCache = async (key: string): Promise<string | null> => {
   try {
     const redis = await getRedisClient();
+    if (!redis) return null;
     const value = await redis.get(key);
     logger.debug(`Redis: GET → Key: ${key} | Hit: ${value !== null}`);
     return value;
@@ -43,6 +44,7 @@ export const setCache = async (
 ): Promise<void> => {
   try {
     const redis = await getRedisClient();
+    if (!redis) return null;
     await redis.set(key, value, 'EX', EX);
     logger.debug(
       `Redis: SET → Key: ${key} | TTL: ${EX}s | Tags: [${tags.join(', ')}]`
@@ -64,6 +66,7 @@ export const setCache = async (
 export const deleteCache = async (key: string): Promise<void> => {
   try {
     const redis = await getRedisClient();
+    if (!redis) return null;
     const result = await redis.del(key);
     logger.debug(
       result === 1 ? `Redis: DEL → ${key}` : `Redis: DEL skipped → ${key}`
@@ -80,6 +83,7 @@ export const deleteCache = async (key: string): Promise<void> => {
 export const checkExists = async (key: string): Promise<boolean> => {
   try {
     const redis = await getRedisClient();
+    if (!redis) return null;
     const exists = await redis.exists(key);
     logger.debug(`Redis: EXISTS → ${key} = ${!!exists}`);
     return !!exists;
@@ -95,6 +99,7 @@ export const checkExists = async (key: string): Promise<boolean> => {
 export const invalidateTag = async (tag: string): Promise<void> => {
   try {
     const redis = await getRedisClient();
+    if (!redis) return null;
     const tagKey = `${TAG_PREFIX}${tag}`;
     const keys = await redis.smembers(tagKey);
 
