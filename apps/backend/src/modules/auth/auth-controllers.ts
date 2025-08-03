@@ -11,7 +11,7 @@ export const loginOrSignup = asyncHandler(async (req, res) => {
   const { phoneNumber, expoPushToken } = req.body;
   
   logger.info(`AuthController: loginOrSignup → Phone: ${phoneNumber}`);
-
+  console.log(req.body);
   const result = authSchema.safeParse(req.body);
   if (!result.success) {
     const issues = result.error.issues.map(i => ({
