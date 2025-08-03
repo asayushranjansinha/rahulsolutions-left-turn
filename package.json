@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "prepare": "is-ci || husky",
+    "prepare": "husky",
     "lint": "npm run lint --workspaces",
     "lint:fix": "npm run lint:fix --workspaces",
     "clean": "npm run clean --workspaces && rm -rf node_modules",
@@ -22,7 +22,6 @@
     "concurrently": "^9.2.0",
     "eslint": "^9.32.0",
     "husky": "^9.1.7",
-    "is-ci": "^4.1.0",
     "prettier": "^3.6.2",
     "typescript": "^5.8.3"
   },
