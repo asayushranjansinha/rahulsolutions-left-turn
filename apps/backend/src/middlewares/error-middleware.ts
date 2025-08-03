@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { config } from '@/config/env-config';
-import { logger } from '@/config/logger.config';
+import { logger } from '@/config/logger-config';
 import { AppError } from '@/utils/app-error';
 
 /**

@@ -37,6 +37,10 @@ jobs:
       - name: Install backend dependencies only
         run: npm install --workspace apps/backend
 
+      - name: Generate Prisma Client
+        working-directory: apps/backend
+        run: npx prisma generate
+
       - name: Set up backend environment variables
         working-directory: apps/backend
         run: |

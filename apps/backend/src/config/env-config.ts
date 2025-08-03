@@ -13,6 +13,7 @@ const envSchema = z.object({
     .string()
     .default('http://localhost:3000,http://localhost:8081'),
   HOST: z.string().default('0.0.0.0'),
+  REDIS_URL:z.string()
 });
 
 const env = envSchema.parse(process.env);
@@ -27,6 +28,7 @@ export const config = {
   isDevelopment: env.NODE_ENV === 'development',
   isProduction: env.NODE_ENV === 'production',
   isTest: env.NODE_ENV === 'test',
+  redisUrl:env.REDIS_URL,
 } as const;
 
 export type Config = typeof config;

@@ -1,6 +1,6 @@
 import { createApp } from "./app";
 import { config } from "./config/env-config";
-import { logger } from "./config/logger.config";
+import { logger } from "./config/logger-config";
 
 const startServer = async (): Promise<void> => {
   try {
