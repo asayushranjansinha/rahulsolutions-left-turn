@@ -1,0 +1,48 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Express TypeScript backend with ES modules",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc && tsc-alias",
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit --project tsconfig.json",
+    "postinstall": "npm run build"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/ioredis": "^4.28.10",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^24.1.0",
+    "@types/supertest": "^6.0.3",
+    "supertest": "^7.1.4",
+    "tsc-alias": "^1.8.16",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.1",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "zod": "^4.0.14"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

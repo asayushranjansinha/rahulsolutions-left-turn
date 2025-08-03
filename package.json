@@ -1,0 +1,32 @@
+{
+  "name": "rahulsolutions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo with Expo mobile app and Express backend",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "prepare": "husky",
+    "lint": "npm run lint --workspaces",
+    "lint:fix": "npm run lint:fix --workspaces",
+    "clean": "npm run clean --workspaces && rm -rf node_modules",
+    "typecheck": "npm run typecheck --workspaces"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.32.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.6.2",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
