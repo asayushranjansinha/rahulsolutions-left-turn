@@ -14,6 +14,9 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
+
+    env:
+      HUSKY: 0 # disables husky hooks
     
     strategy:
       matrix:
