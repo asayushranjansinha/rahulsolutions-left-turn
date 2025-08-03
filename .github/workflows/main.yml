@@ -15,8 +15,8 @@ jobs:
     runs-on: self-hosted
 
     env:
-      HUSKY: 0 # disables husky hooks
-    
+      HUSKY: 0
+
     strategy:
       matrix:
         node-version: [22.x]
@@ -35,15 +35,20 @@ jobs:
       - name: Install backend dependencies only
         run: npm install --workspace apps/backend
 
-      - name: Generate Prisma Client
-        working-directory: apps/backend
-        run: npx prisma generate
-
       - name: Set up backend environment variables
         working-directory: apps/backend
         run: |
           touch .env
           echo "${{ secrets.BACKEND_ENV }}" > .env
+
+      - name: Generate Prisma Client
+        working-directory: apps/backend
+        run: npx prisma generate
+
+      # Optional
+      # - name: Run Prisma Migrations
+      #   working-directory: apps/backend
+      #   run: npx prisma migrate deploy
 
       - name: Build backend
         working-directory: apps/backend
